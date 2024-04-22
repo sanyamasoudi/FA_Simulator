@@ -31,7 +31,9 @@ class DFA:
     @staticmethod
     def deserialize_json(json_str: str) -> 'DFA':
         fa = DFA()
-        json_fa = json.loads(json_str)
+        json_fa={}
+        with open(json_str) as f:
+            json_fa = json.load(f)
 
         fa.alphabet = json_fa["alphabet"]
 
@@ -119,7 +121,7 @@ class NFA:
     def deserialize_json(json_str: str) -> 'NFA':
         fa = NFA()
         json_fa={}
-        with open('json_fa1.json') as f:
+        with open(json_str) as f:
             json_fa = json.load(f)
         fa.alphabet = json_fa["alphabet"]
         fa.alphabet.append(" ")
