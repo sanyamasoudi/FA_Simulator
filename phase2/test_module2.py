@@ -6,7 +6,7 @@ from utils import utils
 
 class TestModule2(unittest.TestCase):
     def test(self):
-        test_directory = "../data/module2Test"
+        test_directory = "./data/module2Test"
         image_files = [file for file in os.listdir(test_directory) if file.endswith((".jpg", ".png"))]
         image_files.sort()
 
