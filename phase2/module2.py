@@ -1,11 +1,24 @@
 from phase0.FA_class import DFA
+from phase1.module1 import solve as ConvertToDFA
 from utils import utils
 from utils.utils import imageType
 
 
 def solve(json_str: str, image: imageType) -> bool:
     fa = DFA.deserialize_json(json_str)
-    ...
+    dfa= ConvertToDFA(image)
+
+    totalCounter=0
+    accepterCounter=0
+    for state in  dfa.states:
+        for symbol in  dfa.alphabet:
+            if fa.get_state_by_id(state.id)!=None and state.transitions[symbol].id==fa.get_state_by_id(state.id).transitions[symbol].id:
+                accepterCounter=accepterCounter+1
+            totalCounter=totalCounter+1
+
+    if(accepterCounter==totalCounter): return True
+    else: return False
+    
 
 
 if __name__ == "__main__":

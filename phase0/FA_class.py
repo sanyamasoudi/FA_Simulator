@@ -32,22 +32,22 @@ class DFA:
     def deserialize_json(json_str: str) -> 'DFA':
         fa = DFA()
         json_fa={}
-        with open(json_str) as f:
-            json_fa = json.load(f)
-
+        # with open(json_str) as f:
+        #     json_fa = json.load(f)
+        json_fa=json.loads(json_str)
         fa.alphabet = json_fa["alphabet"]
 
         for state_str in json_fa["states"]:
             fa.add_state(int(state_str[2:]))
 
-        fa.init_state = fa.get_state_by_id(json_fa["initial_state"][2:])
+        fa.init_state = fa.get_state_by_id(int(json_fa["initial_state"][2:]))
 
         for final_str in json_fa["final_states"]:
-            fa.add_final_state(fa.get_state_by_id(final_str[2:]))
+            fa.add_final_state(fa.get_state_by_id(int(final_str[2:])))
 
         for state_str in json_fa["states"]:
             for symbol in fa.alphabet:
-                fa.add_transition(fa.get_state_by_id(state_str[2:]), fa.get_state_by_id(json_fa[state_str][symbol][2:]),
+                fa.add_transition(fa.get_state_by_id(int(state_str[2:])), fa.get_state_by_id(int(json_fa[state_str][symbol][2:])),
                                     symbol)
 
         return fa
