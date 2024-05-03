@@ -28,7 +28,7 @@ def solve(json_str: str, image: imageType) -> bool:
     # if(accepterCounter/totalCounter * 100 >5): return True
     if(accepterCounter==totalCounter): return True
     else: return False
-
+    
 
 
 if __name__ == "__main__":
