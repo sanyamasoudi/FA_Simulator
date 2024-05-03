@@ -1,94 +1,5 @@
 import json
 
-
-class State:
-    __counter = 0
-
-    def __init__(self, id: None) -> None:
-        if id is None:
-            self.id = State._get_next_id()
-        else:
-            self.id = id
-        self.transitions: dict[str, 'State'] = {}
-
-    def add_transition(self, symbol: str, state: 'State') -> None:
-        self.transitions[symbol] = state
-
-    @classmethod
-    def _get_next_id(cls) -> int:
-        current_id = cls.__counter
-        cls.__counter += 1
-        return current_id
-
-
-class DFA:
-    def __init__(self) -> None:
-        self.init_state = None
-        self.states: list['State'] = []
-        self.alphabet: list['str'] = []
-        self.final_states: list['State'] = []
-
-    @staticmethod
-    def deserialize_json(json_str: str) -> 'DFA':
-        fa = DFA()
-        json_fa={}
-        with open(json_str) as f:
-            json_fa = json.load(f)
-
-        fa.alphabet = json_fa["alphabet"]
-
-        for state_str in json_fa["states"]:
-            fa.add_state(int(state_str[2:]))
-
-        fa.init_state = fa.get_state_by_id(json_fa["initial_state"][2:])
-
-        for final_str in json_fa["final_states"]:
-            fa.add_final_state(fa.get_state_by_id(final_str[2:]))
-
-        for state_str in json_fa["states"]:
-            for symbol in fa.alphabet:
-                fa.add_transition(fa.get_state_by_id(state_str[2:]), fa.get_state_by_id(json_fa[state_str][symbol][2:]),
-                                    symbol)
-
-        return fa
-
-    def serialize_json(self) -> str:
-        fa = {
-            "states": list(map(lambda s: f"q_{s.id}", self.states)),
-            "initial_state": f"q_{self.init_state.id}",
-            "final_states": list(map(lambda s: f"q_{s.id}", self.final_states)),
-            "alphabet": self.alphabet
-        }
-
-        for state in self.states:
-            fa[f"q_{state.id}"] = {}
-            for symbol in self.alphabet:
-                fa[f"q_{state.id}"][symbol] = f"q_{state.transitions[symbol].id}"
-
-        return json.dumps(fa)
-
-    def add_state(self, id: int | None = None) -> State:
-        state = State(id)
-        self.states.append(state)
-        return state
-
-    def add_transition(self, from_state: State, to_state: State, input_symbol: str) -> None:
-        from_state.add_transition(input_symbol, to_state)
-
-    def assign_initial_state(self, state: State) -> None:
-        self.init_state = state
-
-    def add_final_state(self, state: State) -> None:
-        self.final_states.append(state)
-
-    def get_state_by_id(self, id) -> State | None:
-        for state in self.states:
-            if state.id == id:
-                return state
-        return None
-
-    def is_final(self, state: State) -> bool:
-        return state in self.final_states
 class NFAState:
     __counter = 0
 
@@ -121,7 +32,7 @@ class NFA:
     def deserialize_json(json_str: str) -> 'NFA':
         fa = NFA()
         json_fa={}
-        with open(json_str) as f:
+        with open('json_fa1.json') as f:
             json_fa = json.load(f)
         fa.alphabet = json_fa["alphabet"]
         fa.alphabet.append(" ")
@@ -138,8 +49,8 @@ class NFA:
                 ss=json_fa[state_str].get(symbol)
                 if(ss is not None):
                     for to_state_str in ss:
-                        fa.add_transition(fa.get_state_by_id(int(state_str[2:])), fa.get_state_by_id(int(to_state_str[2:])),
-                                        symbol)
+                      fa.add_transition(fa.get_state_by_id(int(state_str[2:])), fa.get_state_by_id(int(to_state_str[2:])),
+                                      symbol)
         return fa
 
     def serialize_to_json(self) -> str:
@@ -152,7 +63,7 @@ class NFA:
 
         for state in self.states:
             fa[f"q_{state.id}"] = {symbol: [] for symbol in state.transitions.keys()}
-
+            # for transitions in st
             for symbol in state.transitions.keys():
                 for to_state in state.transitions[symbol]:
                     fa[f"q_{state.id}"][symbol].append(f"q_{to_state.id}")
@@ -275,4 +186,8 @@ class NFA:
             machine.add_transition(fState, machine.init_state, " ")
             machine.add_transition(machine.init_state, fState, " ")
         return machine
+
+
+
+
 
