@@ -43,7 +43,6 @@ def split_into_fourths(image):
     return [part1, part2, part3, part4]
 
 def solve(image: imageType) -> 'DFA':
-    # imageList = utils.convert_pictures_to_gray_scale_and_binary_array('temp.png')
     diction = {}
     dfa=DFA()
     initState=dfa.add_state(0)
@@ -52,8 +51,6 @@ def solve(image: imageType) -> 'DFA':
     i=0
     j=0
     diction[initState]=image
-    # print(dfa.states[0].id)
-    # print(diction[initState][0])
     while(True):
         k=0
         parts=split_into_fourths(diction[dfa.get_state_by_id(i)])
@@ -62,24 +59,16 @@ def solve(image: imageType) -> 'DFA':
                 dfa.add_final_state(dfa.get_state_by_id(i))
             for ik in range(0,4):
                 dfa.add_transition(dfa.get_state_by_id(i),dfa.get_state_by_id(i),dfa.alphabet[ik])
-                # print(f"{i}--{dfa.alphabet[k]}-->{i}")
-                # print("===========")
         else:
             for part in parts:
-                # print(part)
-                # print("===========")
                 if part in diction.values():
                     keyToState = next((k for k, v in diction.items() if v == part), None)
                     dfa.add_transition(dfa.get_state_by_id(i),keyToState,dfa.alphabet[k])
-                    # print(f"{i}--{dfa.alphabet[k]}-->{keyToState.id}")
-                    # print("===========")
                 else:
                     j=j+1
                     newState=dfa.add_state(j)
                     diction[newState]=part
                     dfa.add_transition(dfa.get_state_by_id(i),newState,dfa.alphabet[k])
-                    # print(f"{i}--{dfa.alphabet[k]}-->{newState.id}")
-                    # print("===========")
                 k=k+1
         if(i==j): break
         else: i=i+1
