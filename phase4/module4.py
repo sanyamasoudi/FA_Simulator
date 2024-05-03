@@ -4,7 +4,7 @@ from utils.utils import imageType
 
 
 def solve(json_str: str, resolution: int) -> imageType:
-    ...
+    fa = DFA.deserialize_json(json_str)
 
 
 if __name__ == "__main__":
