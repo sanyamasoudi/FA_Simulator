@@ -2,7 +2,7 @@ from math import log2
 from phase0.FA_class import DFA, State
 from utils.utils import imageType
 
-
+# changed
 def solve(json_str: str, resolution: int) -> imageType:
     fa = DFA.deserialize_json(json_str)
 
