@@ -42,11 +42,10 @@ In this phase, you should get a picture as an input and then convert it to its e
 
 
 ### **showing pixels using bit-addressing**
-The next thing you should know in this phase is the bit addressing method, which results in a string that we use as input for our constructed DFA. For this approach, we have to consider that our picture's dimensions are powers of 2. At each step, we divide our picture into 4 equal parts and check which part we have our target pixel in. Then, we should concatenate the part number at the end of the address. We continue doing this until the result is only a pixel.
-
-
-
-
+The next thing you should know in this phase is the bit addressing method, which results in a string that we use as input for our constructed DFA.
+For this approach, we have to consider that our picture's dimensions are powers of 2.
+At each step, we divide our picture into 4 equal parts and check which part we have our target pixel in. 
+Then, we should concatenate the part number at the end of the address. We continue doing this until the result is only a pixel
 
 ## **constructing our automata**
 Consider the following definitions:
