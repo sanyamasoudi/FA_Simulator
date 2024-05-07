@@ -1,12 +1,12 @@
 ﻿Iran University of Science and Technology Theory of language and automata (Spring 2024) Dr. Reza Entezari-Maleki
 
 
-**Course Project:**
+#### **Course Project:**
 
-**Finite State Automata and Usages in Picture Recognition**
+# **Finite State Automata and Usages in Picture Recognition**
 
 
-1. **Overview**
+## **Overview**
 
 In this project, we try to implement picture recognition tools in a newly discussed way using Finite automata. This project has five phases, which are:
 
@@ -17,8 +17,8 @@ In this project, we try to implement picture recognition tools in a newly discus
 0. DFA to Picture Conversion
 
 
-1. # **Details and Challenges**
-   0. ### **DFA Implementation**
+## **Details and Challenges**
+### **DFA Implementation**
 
 In this phase, we have to implement some tools that we learned in the course slides and the base class for DFA which will be used in other phases.
 
@@ -31,55 +31,36 @@ You have to implement the following parts in this phase:
 
 
 
-pg. 1
 
-0. ### **Picture to DFA Conversion**
 
-1. **Converting pictures into Zeros and Ones**
+## **Picture to DFA Conversion**
+
+### **Converting pictures into Zeros and Ones**
 
 In this phase, you should get a picture as an input and then convert it to its equivalent DFA. To achieve this, you have to convert the input image to an array of zeros and ones. This part has been implemented for you as a function named convert\_pictures\_to\_gray\_scale\_and\_binary\_array in the utils.py file.
 
 
-1. ### **showing pixels using bit-addressing**
+### **showing pixels using bit-addressing**
 The next thing you should know in this phase is the bit addressing method, which results in a string that we use as input for our constructed DFA. For this approach, we have to consider that our picture's dimensions are powers of 2. At each step, we divide our picture into 4 equal parts and check which part we have our target pixel in. Then, we should concatenate the part number at the end of the address. We continue doing this until the result is only a pixel.
 
 
 
-**Figure 1**
-
-This is an example of this method. Consider our initial string as empty and the parts numbered as shown in Figure 1.
 
 
-
-
-**Figure 2	Figure 3	Figure 4	Figure 5**
-
-
-
-
-In the second figure, our pixel is in part 3 as we show with red line è S = ”3”.
-
-In the third figure, our pixel is in part 2 as we shown è S = ”32”.
-
-In the fourth figure, our pixel is in part 0 as we shown è S = ”320”.
-
-In the fifth figure, our pixel is in part 3 as we shown è S = ”3203”.
-
-Here because our picture isn’t dividable anymore, our process will terminate, and the pixel’s bit
-
-address is equal to 3203.
-
-1. ### **constructing our automata**
+## **constructing our automata**
 Consider the following definitions:
 
 **For a given image I, we denote Iw the zoomed part of I in the square addressed w. The image represented by state number x is denoted by ux.**
 
 Now you can construct the DFA using the pseudocode below.
 
+1. i=j=0.
+2. Create state 0 and assign u0=I.
+3. Assume ui=Iw. Process state i, that is for k=0,1,2,3 do:
+If Iwk=uq for some atate q, then create an edge labeled k from state i to state q; otherwise assign j=j+1, uj=Iwk ,and create an edge labeled k from state i to the new state j,
+4. if i=j, that is all states have been processed, stop; otherwise i=i+1, go to 3.
 
-pg. 2
-
-0. ### **Picture Recognition**
+## **Picture Recognition**
 
 In this phase, you have to implement a functionality to show if a given image is equivalent of the given DFA or not and how much similarity is by percentage.
 
@@ -91,28 +72,29 @@ For each black pixel of the given image check that its bit-address is accepted b
 
 
 
-0. ### **Picture Classification**
+## **Picture Classification**
 
 This phase is really similar to the previous phase. In this phase at first, you give a set of pictures and a set of DFA’s. Then you have to check which of our DFA groups has the most similarity with each given input picture.
 
 
 
-0. ### **DFA to Picture Array Conversion**
+## **DFA to Picture Array Conversion**
 
 In the last phase of the project, you have to implement a function which can convert a given DFA to a picture array related to that.
 
 
-3. # **Implementation notes**
+#### **Implementation notes**
 
 To implement this project, you have to clone our project template first from this [URL ](https://github.com/TLAproject4022/project-template)which contains parts for visualizations and temporal files. then you have to create a virtual environment. You can do that by the below command.
 
-` 	`Python3 -m venv [**virtual**-env-**name**]	
+```Python3 -m venv [**virtual**-env-**name**]```
 
-## To install the dependencies which you will need in this project, you should run the below command.
-` 	`pip **install** -r requirements.txt	
+To install the dependencies which you will need in this project, you should run the below command.
+```pip **install** -r requirements.txt```
 
 To test your codes with given test modules for each phase, just run the test\_module[phase\_number].py.
-3. # **Submission and Grading**
+
+#### **Submission and Grading**
 To submit your work, simply commit all your changes (adding new files as needed) and push your work to your GitHub repository. also, upload a zipped file of changed files on Quera. Make sure you sign the filename with your student IDs. If you don’t do this, we won’t be able to associate your submission with you!
 
 - **Incremental Progress:** Focus on gradual development to maintain compilability. Debug each added functionality individually.
@@ -137,7 +119,7 @@ pg. 3
 
 **References**:
 
-## [Finite State Automata and Image Recognition (Marian Mindek)](https://ceur-ws.org/Vol-98/paper13.pdf)
+#### [Finite State Automata and Image Recognition (Marian Mindek)](https://ceur-ws.org/Vol-98/paper13.pdf)
 
 
 
