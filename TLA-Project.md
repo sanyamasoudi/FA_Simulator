@@ -1,9 +1,10 @@
 ﻿Iran University of Science and Technology Theory of language and automata (Spring 2024) Dr. Reza Entezari-Maleki
 
 
-#### **Course Project:**
+# **Course Project:**
 
 # **Finite State Automata and Usages in Picture Recognition**
+
 
 
 ## **Overview**
@@ -90,6 +91,7 @@ To implement this project, you have to clone our project template first from thi
 ```Python3 -m venv [**virtual**-env-**name**]```
 
 To install the dependencies which you will need in this project, you should run the below command.
+
 ```pip **install** -r requirements.txt```
 
 To test your codes with given test modules for each phase, just run the test\_module[phase\_number].py.
@@ -102,7 +104,7 @@ To submit your work, simply commit all your changes (adding new files as needed)
 
 - **Make a private repository:** Keep your repository private till presentation day.
 
-pg. 3
+
 
 - **Implementation Language:** All the modules are implemented in python. If you want to use any other languages, you have to implement the functionalities that we have given in that language. So the best choice is Python.
 
@@ -121,40 +123,3 @@ pg. 3
 
 #### [Finite State Automata and Image Recognition (Marian Mindek)](https://ceur-ws.org/Vol-98/paper13.pdf)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-pg. 4
