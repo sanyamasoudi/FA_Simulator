@@ -1,6 +1,6 @@
 from utils.utils import imageType
 from phase0.FA_class import DFA
-from phase2.module2 import solve_2 as CompareDfaImage
+from phase2.module2 import solve as CompareDfaImage
 from phase1.module1 import solve as ConvertToDFA
 
 def Compare(json_str: str, image: imageType) -> int:
