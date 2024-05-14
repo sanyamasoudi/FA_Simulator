@@ -29,25 +29,7 @@ def FindAddresses(json_str: str) -> []:
             que.put(value)
     return diction[fa.final_states[0]]
 
-# def Fill_Image(address:str,arr:imageType,resolution: int) -> imageType:
-#     parts=arr
-#     print(parts)
-#     while(True):
-#         for char in address:
-#             parts=split_into_fourths(parts)
-#             if(parts==None): 
-#                 parts=[1]
-#                 break
-#             else:
-#                 if char=='0':
-#                     parts=parts[0]
-#                 elif char=='1':
-#                     parts=parts[1]
-#                 elif char=='2':
-#                     parts=parts[2]
-#                 elif char=='3':
-#                     parts=parts[3]
-#     arr=parts
+
 
 def solve(json_str: str, resolution: int) -> imageType:
 
@@ -58,7 +40,7 @@ def solve(json_str: str, resolution: int) -> imageType:
 
     
     for address in base_address:
-        print(address)
+        # print(address)
         i0_size=0
         i1_size=resolution-1
         i_n_size=resolution
@@ -120,7 +102,7 @@ def solve(json_str: str, resolution: int) -> imageType:
 
 
 
-    print(empty_array)    
+    # print(empty_array)    
     return empty_array
 
 if __name__ == "__main__":
