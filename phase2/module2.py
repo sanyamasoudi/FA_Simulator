@@ -1,41 +1,23 @@
 from phase0.FA_class import DFA
 from phase1.module1 import solve as ConvertToDFA
-from phase4.module4 import FindAddresses as FindAddresses
+from phase4.module4 import map_to_string as map_to_string
 from utils import utils
 from utils.utils import imageType
-
-def compare_transitions(dfa1, dfa2):
-    for state in dfa1.states:
-        for symbol in dfa1.alphabet:
-            if dfa1.get_state_by_id(state.id) is not None:
-                if dfa1.get_state_by_id(state.id).transitions[symbol].id != dfa2.get_state_by_id(state.id).transitions[symbol].id:
-                    return False
-    return True
-
-def solve_2(json_str: str, image: imageType) -> bool:
-    fa = DFA.deserialize_json(json_str)
-    dfa = ConvertToDFA(image)
-    return compare_transitions(fa, dfa)
 
 
 def solve(json_str: str, image: imageType) -> bool:
     fa = DFA.deserialize_json(json_str)
-
-    image_dfa = ConvertToDFA(image)
-    image_str = DFA.serialize_json(image_dfa)
-    address=FindAddresses(image_str)
-    for item in address:
-        if(item!=None):
-            input_string=item
-            current_state = fa.init_state
-            for symbol in input_string:
-                if symbol not in fa.alphabet:
-                    return False
-                current_state = current_state.transitions[symbol]
-            if  fa.is_final(current_state)==False: return False
-
+    for i in range(len(image)):
+        for j in range(len(image)):
+            if image[i][j]==1:
+                input_string=map_to_string(i,j,len(image))
+                current_state = fa.init_state
+                for symbol in input_string:
+                    if symbol not in fa.alphabet:
+                        return False
+                    current_state = current_state.transitions[symbol]
+                if  fa.is_final(current_state)==False: return False
     return True
-
 
 
 

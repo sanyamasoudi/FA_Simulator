@@ -5,33 +5,6 @@ from utils.utils import imageType
 import queue
 
 
-
-
-def FindAddresses(json_str: str) -> []:
-    fa = DFA.deserialize_json(json_str)
-    diction = {}
-    for state in fa.states:
-        diction[state]=[]
-    
-    initstate = fa.init_state
-    que = queue.Queue()
-    que.put(initstate)
-    diction[initstate].append('')
-
-    while not que.empty():
-        s = que.get()
-        if(fa.final_states.__contains__(s)): 
-            break
-        for value in s.transitions.values():
-            for key in s.transitions.keys():
-                if s.transitions[key]==value :
-                    for prev in diction[s]:
-                        if diction[value].__contains__(f"{prev}{key}")==False: 
-                            diction[value].append(f"{prev}{key}")
-            que.put(value)
-    return diction[fa.final_states[0]]
-
-
 def map_to_string(i, j, resolution):
     map_str = ''
     while resolution > 1:
