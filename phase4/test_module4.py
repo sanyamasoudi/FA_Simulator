@@ -25,7 +25,6 @@ class TestModule2(unittest.TestCase):
 
             binary_array = utils.convert_pictures_to_gray_scale_and_binary_array(image_path, 128)
             binary_array2 = module4.solve(json_fa, 128)
-
             self.assertEqual(binary_array, binary_array2)
 
 

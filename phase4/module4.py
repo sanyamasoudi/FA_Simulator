@@ -1,9 +1,11 @@
 from math import log2
 from phase0.FA_class import DFA, State
-from phase1.module1 import split_into_fourths
 from typing import List
 from utils.utils import imageType
 import queue
+
+
+
 
 def FindAddresses(json_str: str) -> []:
     fa = DFA.deserialize_json(json_str)
@@ -30,80 +32,54 @@ def FindAddresses(json_str: str) -> []:
     return diction[fa.final_states[0]]
 
 
+def map_to_string(i, j, resolution):
+    map_str = ''
+    while resolution > 1:
+        part_height = resolution // 2
+        part_width = resolution // 2
+        if i < part_height and j < part_width:
+            map_str = '0' + map_str
+        elif i < part_height and j >= part_width:
+            map_str = '1' + map_str
+        elif i >= part_height and j < part_width:
+            map_str = '2' + map_str
+        else:
+            map_str = '3' + map_str
+
+        i %= part_height
+        j %= part_width
+        resolution //= 2
+    ans=''
+    for i in range(len(map_str)):
+        ans += map_str[len(map_str)-i-1]
+    return ans
 
 def solve(json_str: str, resolution: int) -> imageType:
-
     fa = DFA.deserialize_json(json_str)
-    base_address =  FindAddresses(json_str)
-            
-    empty_array = [[0 for _ in range(resolution)] for _ in range(resolution)]
-
+    image_array = [[0 for _ in range(resolution)] for _ in range(resolution)]
     
-    for address in base_address:
-        # print(address)
-        i0_size=0
-        i1_size=resolution-1
-        i_n_size=resolution
-        
-        j0_size=0
-        j1_size=resolution-1
-        j_n_size=resolution
-        
-        while(True):
-            for char in address:
-                # print(char)
-                i_n_size//=2
-                j_n_size//=2
-                if(i1_size==i0_size or j1_size==j0_size):
-                    empty_array[i0_size][j0_size]=1
-                    #print(f"{i0_size}-->{i1_size}\n{j0_size}-->{j1_size}")
-                    break
-                else:
-                    if char=='0':
-                        i0_size+=0
-                        i1_size=i0_size+ i_n_size-1
-                        
-                        j0_size+=0
-                        j1_size=j0_size + j_n_size-1
-                        
-                    elif char=='1':
-                        i0_size+=0
-                        i1_size=i0_size+ i_n_size-1
 
-                        j0_size+=j_n_size
-                        j1_size=j0_size+ j_n_size -1
-                        
-                    elif char=='2':
-                        i0_size+=i_n_size
-                        i1_size=i0_size+i_n_size-1
-                        
-                        j0_size+=0
-                        j1_size=j0_size + j_n_size-1
-                        
-                    elif char=='3':
-                        i0_size+=i_n_size
-                        i1_size=i0_size+i_n_size-1
-                        
-                        j0_size+=j_n_size
-                        j1_size=j0_size+ j_n_size-1
-                        
-                        
-
-                # print(f"{i_n_size}--{j_n_size}")
-            # print(empty_array)
-                # print(f"{i0_size}-->{i1_size}\n{j0_size}-->{j1_size}")
-                # print(f"{i0_size}-->{i1_size}\n{j0_size}-->{j1_size}")
-                
-            if(i1_size==i0_size or j1_size==j0_size):
-                empty_array[i0_size][j0_size]=1
-                break
-            # empty_array[i0_size][j0_size]=1
-            # break
+    for i in range(resolution):
+        for j in range(resolution):
+            mapped_string = map_to_string(i, j, resolution)
+            final_state = fa.process_input(mapped_string)
+            image_array[i][j] = 1 if final_state in fa.final_states else 0
+    
+    return image_array
 
 
+def process_input(self, input_string: str) -> State:
+    current_state = self.init_state
+    for symbol in input_string:
+        current_state = current_state.transitions.get(symbol)
+        if current_state is None:
+            break
+    return current_state
 
-    # print(empty_array)    
-    return empty_array
+
+DFA.process_input = process_input
+
+
 
 if __name__ == "__main__":
     pic_arr = solve(
@@ -114,4 +90,4 @@ if __name__ == "__main__":
         '"3": "q_4"}}',
         4
     )
-    # print(pic_arr)
+    print(pic_arr)
